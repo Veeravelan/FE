@@ -1,133 +1,249 @@
 <div class='container-fluid'>
-  <div class='row'>
-    <div col-md-6 col-sm-6>
-      <img src='/src/assets/' alt='Logo' />
+  <div class='row nav-row'>
+    <div class='col-md-6 col-sm-6'>
+      <img class='logo' src='assets/site-logo.png' alt='Logo' />
     </div>
-    <div col-md-6 col-sm-6>
-      <input type='text' id='search_field' placeholder='Search' />
-      <button class='btn btn-primary' id='inteligent_filter'>Inteligent Filter</button>
-      <button class='btn btn-primary' id='filter'>Filter</button>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='col-md-12 col-sm-12'>
-      <div class='card'>
-        <h3>My Funds (20)</h3>
-        <div class='col-md-6 col-sm-6' id='pie_chart'></div>
-        <div class='col-md-6 col-sm-6' id='asset_table_hold'>
-          <p>Asset Breakdown</p>
-          <div className="table-responsive">
-            <table className="table table-hover" id="asset_table">
-              <thead></thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td>Cash and Money Markets</td>
-                  <td>9.50%</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Cash and Money Markets</td>
-                  <td>9.50%</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Cash and Money Markets</td>
-                  <td>9.50%</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Cash and Money Markets</td>
-                  <td>9.50%</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Cash and Money Markets</td>
-                  <td>9.50%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <div class='col-md-6 col-sm-6'>
+      <div class='row'>
+        <!-- search box -->
+        <div class="form-group has-search col-md-6">
+          <!-- <span class="fa fa-search form-control-feedback"></span> -->
+          <input type="text" class="form-control" placeholder="Search">
         </div>
-        <div class='col-md-12 col-sm-12'>
-          <div class='row'>
-            <div class='col-md-4 col-sm-12'>Portfolio Scan</div>
-            <div class='col-md-4 col-sm-12'>Comparison Report</div>
-            <div class='col-md-4 col-sm-12'>Chart</div>
-            <div class='col-md-4 col-sm-12'><button class='btn'>Close</button></div>
-          </div>
+        <div class='col-md-6'>
+          <button type="button" class="btn btn-outline-warning margin-right-10" id='inteligent_filter'>Inteligent Filter</button>
+          <button type="button" class="btn btn-outline-warning" id='filter'>Filter</button>
         </div>
       </div>
     </div>
   </div>
-  <div class='row'>
-    <div class='col-md-7 col-sm-12'>
+  <div class='row border white-bg'>
+    <h3 class='col-md-12 col-sm-12 border-bottom padding-bottom-15'>
+      <span>My Funds (20)</span> 
+      <span class='toggle-panel float-right' (click)='togglePanel($event)'>
+          <i class="fa fa-angle-double-down"></i>
+      </span></h3>
+    <div class='col-md-6 col-sm-6' id='pie_chart'>
+      <fusioncharts width="100%" height="94%" type="Column2d" [dataSource]="dataSource">
+      </fusioncharts>
+    </div>
+    <div class='col-md-6 col-sm-6' id='asset_table_hold'>
+      <div className="table-responsive">
+        <table class='table table-hover table-seperator' id='asset_breakdown_table'>
+          <thead>
+            <tr>
+              <th class='title-font' colspan="5">Asset Breakdown</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class='square greenSquare'></span></td>
+              <td>Cash & Money Markets</td>
+              <td>9.50%</td>
+            </tr>
+            <tr>
+              <td><span class='square greenSquare'></span></td>
+              <td>Cash & Money Markets</td>
+              <td>9.50%</td>
+            </tr>
+            <tr>
+              <td><span class='square greenSquare'></span></td>
+              <td>Cash & Money Markets</td>
+              <td>9.50%</td>
+            </tr>
+            <tr>
+              <td><span class='square greenSquare'></span></td>
+              <td>Cash & Money Markets</td>
+              <td>9.50%</td>
+            </tr>
+            <tr>
+              <td><span class='square greenSquare'></span></td>
+              <td>Cash & Money Markets</td>
+              <td>9.50%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class='col-md-12 col-sm-12'>
+      <div class='row border-top padding-15'>
+        <div class='col-md-4 col-sm-4 text-center'>Portfolio Scan</div>
+        <div class='col-md-4 col-sm-4 text-center'>Comparison Report</div>
+        <div class='col-md-4 col-sm-4 text-center'>Chart</div>
+        <!-- <div class='col-md-3 col-sm-6'>
+          <button type="button" class="btn btn-outline-danger">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class='row margin-top-20'>
+    <div class='col-md-7 col-sm-12 white-bg right-border-15-grey'>
       <nav class="nav-justified ">
         <div class="nav nav-tabs " id="nav-tab" role="tablist">
           <a class="nav-item nav-link active" id="pop1-tab" data-toggle="tab" href="#pop1" role="tab"
-            aria-controls="pop1" aria-selected="true">Tab1</a>
+            aria-controls="pop1" aria-selected="true">Price Overview</a>
           <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#pop2" role="tab" aria-controls="pop2"
-            aria-selected="false">Tab2</a>
+            aria-selected="false">Fund Information</a>
           <a class="nav-item nav-link" id="pop3-tab" data-toggle="tab" href="#pop3" role="tab" aria-controls="pop3"
-            aria-selected="false">Tab3</a>
+            aria-selected="false">Performance</a>
 
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="pop1" role="tabpanel" aria-labelledby="pop1-tab">
-          <div class="pt-3"></div>
-          <div className="table-responsive">
-              <table class='table table-hover'>
-                <thead>
-                  <tr>
-                    <th colspan="3">Atividades do projeto</th>
-                  </tr>
-                  <tr>
-                    <th>#</th>
-                    <th colspan="2">Atividade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Atualizar página da equipe</td>
-                    <td>
-                      <span class="material-icons">face</span>
-                      <i class="material-icons button delete">delete</i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Design da nova marca</td>
-                    <td>
-                      <i class="material-icons button edit">edit</i>
-                      <i class="material-icons button delete">delete</i>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Encontrar desenvolvedor front-end</td>
-                    <td>
-                      <i class="material-icons button edit">edit</i>
-                      <i class="material-icons button delete">delete</i>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="pt-3">
+            <!-- search box -->
+            <div class="form-group has-search">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control" placeholder="Search">
             </div>
+          </div>
+          <div className="table-responsive">
+            <table class='table table-hover table-seperator'>
+              <thead>
+                <tr>
+                  <th class='title-font' colspan="5">Product Activities</th>
+                </tr>
+                <tr>
+                  <th>Investment Name</th>
+                  <th>IMA Sector</th>
+                  <th>Ongoing Charge</th>
+                  <th>Yield</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href='javascript:;' class='expand'>+</a>Refresh team page</td>
+                  <td>Refresh team page</td>
+                  <td>0.68%</td>
+                  <td>1.50</td>
+                  <td>
+                    <a href='javascript:;'><span class="buy">Buy</span></a>
+                    <a href='javascript:;'><span class="chart">Chart</span></a>
+                    <a href='javascript:;'><span class="chart">Chart</span></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href='javascript:;' class='expand'>+</a>Refresh team page</td>
+                  <td>Refresh team page</td>
+                  <td>0.68%</td>
+                  <td>1.50</td>
+                  <td>
+                    <a href='javascript:;'><span class="buy">Buy</span></a>
+                    <a href='javascript:;'><span class="chart">Chart</span></a>
+                    <a href='javascript:;'><span class="chart">Chart</span></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><a href='javascript:;' class='expand'>+</a>Refresh team page</td>
+                  <td>Refresh team page</td>
+                  <td>0.68%</td>
+                  <td>1.50</td>
+                  <td>
+                    <a href='javascript:;'><span class="buy">Buy</span></a>
+                    <a href='javascript:;'><span class="chart">Chart</span></a>
+                    <a href='javascript:;'><span class="chart">Chart</span></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-
-
       </div>
-     
     </div>
-    <div class='col-md-5 col-sm-12'>
-      <button class='btn btn-default'>Configure your widgets</button>
-      <div class='card'>
-        <h4>Most popular funds</h4>
+    <div class='col-md-5 col-sm-12 white-bg'>
+      <button type="button" class="btn btn-outline-primary margin-bottom-21">Configure your widgets</button>
+      <div class=''>
+        <div className="table-responsive">
+          <table class='table table-hover table-seperator'>
+            <thead>
+              <tr>
+                <th class='title-font' colspan="5">Most popular funds</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                  <span class='range highestReturn'></span>
+                </td>
+                <td>90%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                  <span class='range aboveAverage'></span>
+                </td>
+                <td>70%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                  <span class='range average'></span>
+                </td>
+                <td>50%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                  <span class='range belowAverage'></span>
+                </td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                  <span class='range worst'></span>
+                </td>
+                <td>20%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class='card'>
-        <h4>Top performing funds</h4>
+      <div class=''>
+        <div className="table-responsive">
+          <table class='table table-hover table-seperator'>
+            <thead>
+              <tr>
+                <th class='title-font' colspan="5">Top performing funds</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                </td>
+                <td>90%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                </td>
+                <td>70%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                </td>
+                <td>50%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                </td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>
+                  <p>CF Wood ward Equity Income</p>
+                </td>
+                <td>10%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
