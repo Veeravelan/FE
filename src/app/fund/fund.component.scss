@@ -46,3 +46,15 @@
 .toggle-panel{
     cursor: pointer;
 }
+.buy, .chart{
+    padding: 1px 5px;
+    padding-bottom: 3px;
+}
+
+.buy{
+    background: green;
+    color:#fff;
+}
+a.expand {
+    padding: 1px 5px;
+}
