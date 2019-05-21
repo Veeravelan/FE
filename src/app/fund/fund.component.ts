@@ -1,12 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, transition, animate, style } from '@angular/animations'
 
 @Component({
   selector: 'app-fund',
   templateUrl: './fund.component.html',
-  styleUrls: ['./fund.component.scss']
+  styleUrls: ['./fund.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({transform: 'translateY(-100%)'}),
+        animate('200ms ease-in', style({transform: 'translateY(0%)'}))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({transform: 'translateY(-100%)'}))
+      ])
+    ])
+  ]
 })
 export class FundComponent implements OnInit {
   public isExpandex = false;
+  public visible = true;
   dataSource: Object;
   constructor() {
       this.dataSource = {
@@ -51,13 +64,6 @@ export class FundComponent implements OnInit {
   }
 
   public togglePanel(event) {
-      const getElemHeight = document.getElementById('asset_table_hold').style.height;
-      console.log(getElemHeight);
-      if(parseInt(getElemHeight) > 0) {
-        document.getElementById('asset_table_hold').style.cssText = 'height: 0; overflow: hidden;';
-      } else {
-        document.getElementById('asset_table_hold').style.cssText = 'height: auto; overflow: auto;';
-      }
   }
 
 }
